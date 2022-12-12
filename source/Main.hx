@@ -10,6 +10,9 @@ import openfl.display.Sprite;
 import openfl.events.Event;
 import lime.app.Application;
 import flixel.tweens.FlxTween;
+import openfl.display.StageScaleMode;
+import ClientPrefs; 
+import openfl.Lib; 
 
 class Main extends Sprite
 {
@@ -19,7 +22,7 @@ class Main extends Sprite
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	var framerate:Int = 60; // How many frames per second the game should run at.
 	var lowframerate:Int = 20;
-	var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
+	public static var fpsVar:FPS;var skipSplash:Bool = false; // Whether to skip the flixel splash screen that appears in release mode.
 	var startFullscreen:Bool = false; // Whether to start the game in fullscreen on desktop targets
 	public static var fpsVar:FPS;
 	var focusMusicTween:FlxTween;
@@ -80,14 +83,16 @@ class Main extends Sprite
 		Application.current.window.onFocusOut.add(onWindowFocusOut);
 		Application.current.window.onFocusIn.add(onWindowFocusIn);
 
-		/*
-		#if !mobile
-		fpsVar = new FPS(10, 3, 0xFFFFFF);
-		addChild(fpsVar);
-		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.showFPS;
-		}
-		#end*/
+		/* #if !mobile
+ fpsVar = new FPS(10, 3, 0xFFFFFF);
+ addChild(fpsVar);
+ Lib.current.stage.align = "tl";
+ Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
+ if(fpsVar != null) {
+ 	fpsVar.visible = ClientPrefs.showFPS;
+ }
+ #end
+		/
 
 		#if html5
 		FlxG.autoPause = false;
